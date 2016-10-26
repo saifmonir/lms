@@ -1,0 +1,130 @@
+<?php
+function dcc_assignment_menu() {
+	$items = array();
+	$items['assignment'] = array(
+	    'title' => t('Assignment'), 
+	    'description' => t('Assignment'),	    		
+		'page callback' => 'assignment_home',
+		'page arguments' => array(1,2,3),
+		'file' => 'dcc_assignment_view.inc',
+	    'access arguments' => array('View Assignment'),	
+	    'type' => MENU_CALLBACK 
+	);
+	$items['manage/assignment'] = array(
+	    'title' => t('Administer Assignment'), 
+	    'description' => t('Administer Assignment'),	    		
+		'page callback' => 'assignment_manage',
+		'page arguments' => array(2,3,4),
+		'file' => 'dcc_assignment_manage.inc',
+	    'access arguments' => array('Administer Assignment'),	
+	    'type' => MENU_CALLBACK 
+	);
+	return $items;
+}
+
+/**
+ * Implementation of hook_permission().
+ */
+function dcc_assignment_permission() {
+	return array(					
+		'Administer Assignment' =>  array(
+		  'title' => t('Administer Assignment'),
+		  'restrict access' => TRUE,
+		),							
+		'View Assignment' =>  array(
+		  'title' => t('View Assignment'),
+		  'restrict access' => TRUE
+		)
+	);   
+}
+
+function getSection(){
+    return array('0'=>'All','A'=>'A','B'=>'B','C'=>'C','X'=>'X','Y'=>'Y','Z'=>'Z');
+}
+function getGrade(){
+    return array('A+'=>'A+','A'=>'A','A-'=>'A-','B+'=>'B+','B'=>'B','C'=>'C','D'=>'D');
+}
+function getAssignmentSt(){
+    return array('0'=>'Syntax Error','1'=>'Accepted','2'=>'Pending','3'=>'Not Clear','4'=>'Compile Error','5'=>'Run Error','6'=>'Blank!');
+}
+
+function upload_file($fname = 'picture',$fdir = 'pictures',$validate='image',$cfid=''){
+	$fid = 0;
+	if($validate == 'image'){
+		$validators = array('file_validate_extensions' => array('png jpg jpeg ico PNG JPG JPEG ICO')); 
+	}else{
+		$validators = array('file_validate_extensions' => array('png jpg jpeg ico pdf doc docx ppt pptx txt zip rar cpp c')); 
+	}
+    if(isset($_FILES['files']['name'][$fname])){
+		if($_FILES['files']['name'][$fname]){
+			$upload = file_save_upload($fname, $validators,'public://'.$fdir,FILE_EXISTS_RENAME);
+			if($upload){
+                $upload->status = FILE_STATUS_PERMANENT;
+                file_save($upload);
+                if(isset($upload->fid)){
+                    if($cfid){
+                        $file = file_load($cfid);
+                        if(isset($file->fid)){
+                            file_delete($file,true);
+                        }
+                    }
+                    $fid = $upload->fid;
+                }
+			}
+		}
+	}
+	return $fid;
+}
+
+function file_view($fvar,$type='path',$style='thumbnail'){
+	$file = '';
+	if(is_numeric($fvar)){
+		$fl = file_load($fvar);
+		if(isset($fl->fid)){
+			$fp =	file_create_url($fl->uri);
+			$file = $fp;
+			if($type == 'html'){
+				if(strstr($fl->filemime,'image')){
+					$file = theme('image_style', array('style_name' => $style , 'path' => $fl->uri));
+				}else{
+					$cls = 'file';
+					$file ='<a href="'.$fp.'" target="_blank" class="'.$cls.'">'.$fl->filename.'</a>';
+				}
+			}
+		}
+	}else if(isset($fvar->fid)){
+		$fp =	file_create_url($fvar->uri);
+		$file = $fp;
+		if($type == 'html'){
+			if(strstr($fvar->filemime,'image')){
+				$file = theme('image_style', array('style_name' => $style , 'path' => $fvar->uri));
+			}else{
+				$cls = 'file';
+				$file ='<a href="'.$fp.'" target="_blank" class="'.$cls.'">'.$fvar->filename.'</a>';
+			}
+		}
+	}else if(isset($fvar['fid'])){
+		$fp =	file_create_url($fvar['uri']);
+		$file = $fp;
+		if($type == 'html'){
+			if(strstr($fvar['filemime'],'image')){
+				$file = theme('image_style', array('style_name' => $style , 'path' => $fvar['uri']));
+			}else{
+				$cls = 'file';
+				$file ='<a href="'.$fp.'" target="_blank" class="'.$cls.'">'.$fvar['filename'].'</a>';
+			}
+		}
+	}
+	return $file;
+}
+function getCourse($uid = 0){
+	$bArr = array();
+    $result = db_query("SELECT * FROM {node} as n WHERE type = 'course' ORDER BY title ASC");
+	
+	if ($result->rowCount()>0) {
+		foreach ($result as $row) {
+				$bArr[$row->nid] = $row->title;
+		}
+	}
+	return $bArr;
+}

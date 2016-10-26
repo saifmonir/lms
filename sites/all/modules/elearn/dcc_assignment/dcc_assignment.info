@@ -1,0 +1,5 @@
+core = "7.x"
+name = "Assignment view, list, manage"
+package = "dcc"
+project = "dcc_assignment"
+version = "7.x-3.0"

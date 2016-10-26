@@ -1,0 +1,9 @@
+[22-Oct-2016 09:42:09 America/Chicago] PHP Warning:  Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in Unknown on line 0
+[22-Oct-2016 09:43:25 America/Chicago] PHP Warning:  Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in Unknown on line 0
+[25-Oct-2016 11:05:06 Asia/Dhaka] PHP Fatal error:  Call to undefined function getTaxonomy() in /home/edocsbd/public_html/elearn/sites/all/modules/elearn/dcc_assignment/dcc_assignment_manage.inc on line 225
+[25-Oct-2016 11:12:42 Asia/Dhaka] PHP Fatal error:  Call to undefined function getTaxonomy() in /home/edocsbd/public_html/elearn/sites/all/modules/elearn/dcc_assignment/dcc_assignment_manage.inc on line 216
+[25-Oct-2016 11:13:27 Asia/Dhaka] PHP Fatal error:  Call to undefined function file_view() in /home/edocsbd/public_html/elearn/sites/all/modules/elearn/dcc_assignment/dcc_assignment_manage.inc on line 241
+[25-Oct-2016 11:15:40 Asia/Dhaka] PHP Fatal error:  Call to undefined function getTaxonomy() in /home/edocsbd/public_html/elearn/sites/all/modules/elearn/dcc_assignment/dcc_assignment_view.inc on line 43
+[25-Oct-2016 22:55:13 Asia/Dhaka] PHP Fatal error:  Call to undefined function upload_file() in /home/edocsbd/public_html/elearn/sites/all/modules/elearn/dcc_assignment/dcc_assignment_manage.inc on line 303
+[25-Oct-2016 23:36:01 Asia/Dhaka] PHP Fatal error:  Call to undefined function getTaxonomy() in /home/edocsbd/public_html/elearn/sites/all/modules/elearn/dcc_assignment/dcc_assignment_view.inc on line 43
+[25-Oct-2016 23:43:04 Asia/Dhaka] PHP Fatal error:  Cannot redeclare upload_file() (previously declared in /home/edocsbd/public_html/elearn/sites/all/modules/elearn/dcc_assignment/dcc_assignment.module:53) in /home/edocsbd/public_html/elearn/sites/all/modules/elearn/dcc_assignment/dcc_assignment_view.inc on line 525

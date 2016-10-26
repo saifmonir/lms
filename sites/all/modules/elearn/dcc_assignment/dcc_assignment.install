@@ -1,0 +1,33 @@
+<?php
+function dcc_assignment_install() {
+	db_query("CREATE TABLE IF NOT EXISTS `m86_assignment` (
+		  `asid` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		  `title` varchar(255) NOT NULL,
+		  `desc` text NOT NULL,
+		  `batch` int NOT NULL,
+		  `sem` int NOT NULL,
+		  `fid` int NOT NULL,
+		  `ldate` int NOT NULL,
+		  `created` bigint NOT NULL,
+		  `updated` bigint NOT NULL,
+		  `uid` int NOT NULL,
+		  `status` int(1) NOT NULL
+		) COMMENT='Stores assignment' ENGINE='InnoDB' COLLATE 'utf8_general_ci';");
+    
+	db_query("CREATE TABLE IF NOT EXISTS `m86_assignment_submit` (
+		  `asid` int NOT NULL,
+		  `fid` int NOT NULL,
+		  `desc` text NOT NULL,
+		  `uid` int NOT NULL,
+		  `created` bigint NOT NULL,
+		  `updated` bigint NOT NULL,
+		  `status` int(1) NOT NULL
+		) COMMENT='Stores submission of assignment' ENGINE='InnoDB' COLLATE  'utf8_general_ci';");
+    
+}
+
+function dcc_assignment_uninstall() {	
+    db_query("DROP TABLE IF EXISTS `m86_assignment`;");
+    db_query("DROP TABLE IF EXISTS `m86_assignment_submit`;");
+}
+?>
