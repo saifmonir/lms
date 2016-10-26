@@ -1,4 +1,29 @@
+########## Setup the Project (Instruction for users) #####################
 
+Step 1: Download all the files and upload to your server (Local server or online hosting)
+
+Step 2: Create database and import the edocsbd_elearn.sql.gz file from database folder 
+
+Step 3: Change database username and password in the file 'sites/default/settings.php' line#252
+
+Run the project online:
+http://<websitename>.com
+or
+http://<websitename>.com/lms
+
+From localhost:
+http://localhost/lms
+
+Teacher account:
+Username: mahfuz
+Password: Test#123
+
+Student account: 
+Username: shojib
+Password: test123
+
+
+############# For Developers (Drupal) ####################
 CONTENTS OF THIS FILE
 ---------------------
 
